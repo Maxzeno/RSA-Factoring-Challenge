@@ -11,15 +11,15 @@ def factory(num):
         print("{}={}*{}".format(num, int(num//index), index))
     else:
         sq = int(math.sqrt(num)) + 1
-        for index in range(3, sq, +2):
-            if num % index == 0:
-                print("{}={}*{}".format(num, int(num//index), index))
+        for i in range(3, sq, +2):
+            if num % i == 0:
+                print("{}={}*{}".format(num, int(num//i), i))
                 return
-            if num % (sq + index) == 0:
-                print("{}={}*{}".format(num, sq + index, int(num//(sq + index))))
+            if num % (sq + i) == 0:
+                print("{}={}*{}".format(num, sq + i, int(num//(sq + i))))
                 return
-            if num % (sq - index) == 0:
-                print("{}={}*{}".format(num, sq - 1, int(num//(sq - index))))
+            if num % (sq - i) == 0:
+                print("{}={}*{}".format(num, sq - 1, int(num//(sq - i))))
                 return
 
 

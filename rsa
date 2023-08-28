@@ -1,44 +1,44 @@
 #!/usr/bin/python3
 from sys import argv
 import math
-"""gets the first two factors num"""
+"""gets the first two factors of num"""
 
 
 def is_prime(num):
     """checks if a number is prime"""
-    index = 3
+    i = 3
     if num % 2 == 0:
         return False
-    while index * index <= num:
-        if num % index == 0:
+    while i * i <= num:
+        if num % i == 0:
             return False
-        index += 2
+        i += 2
     return True
 
 
 def factory(num):
-    """This factor function gets the factors of num & out"""
+    """This factor function gets the factors of num"""
     if num % 2 == 0:
-        index = 2
-        print("{}={}*{}".format(num, int(num/index), index))
+        i = 2
+        print("{}={}*{}".format(num, int(num/i), i))
     else:
         sq = math.sqrt(num)
         if sq % 1 == 0:
             print("{}={}*{}".format(num, sq, int(num/sq)))
             return
         sq = int(sq) + 1
-        for index in range(3, sq, +2):
-            if num % index == 0:
-                if is_prime(index):
-                    print("{}={}*{}".format(num, int(num/index), index))
+        for i in range(3, sq, +2):
+            if num % i == 0:
+                if is_prime(i):
+                    print("{}={}*{}".format(num, int(num/i), i))
                     return
 
 
 def factors(filename):
     """read file"""
     with open(filename, encoding="utf-8") as my_file:
-        for index in my_file.readlines():
-            n = int(index)
+        for i in my_file.readlines():
+            n = int(i)
             result = factory(n)
 
 
