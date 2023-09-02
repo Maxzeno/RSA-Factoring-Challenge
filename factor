@@ -1,26 +1,25 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+from sys import argv
+from math import sqrt
 
-import sys
-import math
 
-def factorize(n):
-    for i in range(2, int(math.sqrt(n))+1):
-        if n % i == 0:
-            return i, n//i
-    return None, None
-
-if len(sys.argv) != 2:
-    print("Usage: factors <file>")
-    sys.exit(1)
-
-filename = sys.argv[1]
-
-try:
-    with open(filename, 'r') as f:
+def factor():
+    with open(argv[1]) as f:
         for line in f:
-            n = int(line.strip())
-            p, q = factorize(n)
-            print("{}={}*{}".format(n, p, q))
-except IOError:
-    print("Error: Could not read file", filename)
-    sys.exit(1)
+            num = int(line)
+            print("{:d}=".format(num), end="")
+            if num % 2 == 0:
+                print("{}*2".format(num//2))
+                continue
+            sqn = int(sqrt(num))
+            if sqn % 2 == 0:
+                sqn += 1
+            for i in range(3, sqn + 1, 2):
+                if num % i == 0:
+                    print("{}*{}".format(i, num//i))
+                    break
+            if num % i != 0:
+                print("{}={}*1".format(num, num))
+
+
+factor()
