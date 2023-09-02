@@ -1,48 +1,36 @@
 #!/usr/bin/python3
-
-import sys
+from sys import argv
 import math
+"""Factorize as many numbers as possible into a product of 2 smaller nums"""
 
 
-def factorize(n):
-    """
-    Factorize a given integer n into its prime factors.
+def factory(num):
+    """gets the factors of a num"""
+    if num % 2 == 0:
+        index = 2
+        print("{}={}*{}".format(num, int(num//index), index))
+    else:
+        sq = int(math.sqrt(num)) + 1
+        for i in range(3, sq, +2):
+            if num % i == 0:
+                print("{}={}*{}".format(num, int(num//i), i))
+                return
+            if num % (sq + i) == 0:
+                print("{}={}*{}".format(num, sq + i, int(num//(sq + i))))
+                return
+            if num % (sq - i) == 0:
+                print("{}={}*{}".format(num, sq - 1, int(num//(sq - i))))
+                return
 
-    Args:
-        n (int): The integer to be factorized.
 
-    Returns:
-        list: A list of prime factors of n.
-    """
-    factors = []
-    for i in range(2, int(math.sqrt(n)) + 1):
-        while n % i == 0:
-            factors.append(i)
-            n //= i
-    if n > 1:
-        factors.append(n)
-    return factors
+def factors(filename):
+    """read file and print"""
+
+    with open(filename, encoding="utf-8") as my_file:
+        for line in my_file.readlines():
+            n = int(line)
+            result = factory(n)
 
 
-if len(sys.argv) != 2:
-    print("Usage: factors <file>")
-    sys.exit(1)
-
-input_file = sys.argv[1]
-
-try:
-    with open(input_file, "r") as file:
-        for line in file:
-            n = int(line.strip())
-            factors = factorize(n)
-            if len(factors) >= 2:
-                p = factors[0]
-                q = n // p
-                print(f"{n}={p}*{q}")
-
-except FileNotFoundError:
-    print(f"Error: File '{input_file}' not found.")
-    sys.exit(1)
-except ValueError:
-    print("Error: Invalid input in the file.")
-    sys.exit(1)
+if __name__ == "__main__":
+    factors(argv[1])
